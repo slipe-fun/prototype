@@ -1,11 +1,21 @@
-import { useState } from 'react'
-import { Button } from './components/ui/button'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import PublishBlog from './pages/PublishBlog'
+import NavBar from './components/ui/navbar'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <Button className="font-semibold text-5xl h-32">Click me</Button>
+    <Router>
+      <div className="min-h-screen">
+        <main className="pb-[4.5rem]">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/publish" element={<PublishBlog />} />
+          </Routes>
+        </main>
+        <NavBar />
+      </div>
+    </Router>
   )
 }
 
