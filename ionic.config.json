@@ -1,0 +1,7 @@
+{
+  "name": "slipe-prototype",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}
