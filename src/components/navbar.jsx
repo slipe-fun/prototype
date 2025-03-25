@@ -8,7 +8,7 @@ export default function NavBar() {
 	return (
 		<>
 			{url.pathname !== "/auth" ? (
-				<div className='bg-navigation w-screen border-t-[1px] duration-200 pt-2 pb-2 ease-out border-foreground/10 fixed flex bottom-0 backdrop-blur-[80px] z-50'>
+				<div className='bg-navigation pb-[calc(var(--safe-area-inset-bottom)+0.5rem)] w-screen border-t-[1px] duration-200 pt-2 ease-out border-foreground/10 fixed flex bottom-0 backdrop-blur-[80px] z-50'>
 					<NavLink
 						to='/'
 						data-active={url.pathname === "/"}

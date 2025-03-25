@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import ProgressBar from "./progressBar";
+import PostHeader from "./postHeader";
 import ImageDisplay from "./imageDisplay";
 
 export default function Post({ post, images, page, setPage, navigate }) {
@@ -16,7 +16,7 @@ export default function Post({ post, images, page, setPage, navigate }) {
 						setPage(currentPage => (currentPage + 1) % images.length);
 						return 0;
 					}
-					return prev + 100 / 40;
+					return prev + 100 / 80;
 				});
 			}, 100);
 		}
@@ -45,7 +45,7 @@ export default function Post({ post, images, page, setPage, navigate }) {
 			onTouchStart={handleMouseDown}
 			onTouchEnd={handleMouseUp}
 		>
-			<ProgressBar
+			<PostHeader
 				images={images}
 				page={page}
 				isHolding={isHolding}
@@ -55,8 +55,8 @@ export default function Post({ post, images, page, setPage, navigate }) {
 				}}
 				progress={progress}
 			/>
-			<div className='absolute w-1/2 h-[calc(100%-2rem)] bottom-0 left-0 z-20 cursor-pointer' onClick={() => navigate(-1)} />
-			<div className='absolute w-1/2 h-[calc(100%-2rem)] bottom-0 right-0 z-20 cursor-pointer' onClick={() => navigate(1)} />
+			<div className='absolute w-1/2 h-[calc(100%-6rem-var(--safe-area-inset-top))] bottom-0 left-0 z-20 cursor-pointer' onClick={() => navigate(-1)} />
+			<div className='absolute w-1/2 h-[calc(100%-6rem-var(--safe-area-inset-top))] bottom-0 right-0 z-20 cursor-pointer' onClick={() => navigate(1)} />
 			<ImageDisplay post={post} isHolding={isHolding} />
 		</div>
 	);
