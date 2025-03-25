@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import PostHeader from "./postHeader";
 import ImageDisplay from "./imageDisplay";
 
-export default function Post({ post, images, page, setPage, navigate }) {
+export default function Post({ post, images, page, setPage, navigate, user }) {
 	const [progress, setProgress] = useState(0);
 	const [isHolding, setIsHolding] = useState(false);
 
@@ -46,6 +46,7 @@ export default function Post({ post, images, page, setPage, navigate }) {
 			onTouchEnd={handleMouseUp}
 		>
 			<PostHeader
+				user={user}
 				images={images}
 				page={page}
 				isHolding={isHolding}

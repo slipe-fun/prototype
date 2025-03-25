@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
+import cdn from "../../../constants/cdn";
 
 export default function ImageDisplay({ post }) {
 	return (
 		<motion.img
-			key={post.id}
-			src={post.image}
-			alt={`Post ${post.id}`}
+			key={post?.id}
+			src={cdn + "posts/" + post?.image}
+			alt={`Post ${post?.id}`}
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
