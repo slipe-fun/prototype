@@ -4,6 +4,8 @@ import App from './App.jsx'
 import { SafeArea } from 'capacitor-plugin-safe-area';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { NavigationBar } from '@squareetlabs/capacitor-navigation-bar';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 import './index.css'
 //
@@ -22,6 +24,8 @@ SafeArea.getSafeAreaInsets().then(({ insets }) => {
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <Provider store={store}>  
+      <App />
+    </Provider>
   </StrictMode>,
 )

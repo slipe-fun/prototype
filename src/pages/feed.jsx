@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import UserSlider from "../components/feed/userSlider";
+import UserSlider from "../../components/feed/userSlider";
 import { useEffect, useState } from "react";
-import { api } from '../lib/axios';
+import { api } from '../../lib/axios';
 
 import "swiper/css";
 
@@ -22,10 +22,18 @@ export default function Home() {
 
 	return (
 		<div className='flex flex-col w-full h-full items-center justify-center'>
-			<Swiper onSlideChange={(slide) => slide.activeIndex == users.length - 1 && fetchPosts()} direction={"vertical"} className='h-full w-full !pb-[calc(4.625rem+var(--safe-area-inset-bottom))]'>
+			<Swiper 
+				onSlideChange={(swiper) => {
+					if (swiper.activeIndex === users.length - 1) fetchPosts();
+				}} 
+				direction={"vertical"} 
+				className='h-full w-full !pb-[calc(4.625rem+var(--safe-area-inset-bottom))]'
+			>
 				{users.map((user, index) => (
 					<SwiperSlide key={index} className='flex items-center justify-center'>
-						<UserSlider user={user.author} posts={user?.posts} />
+						{({ isActive }) => (
+							<UserSlider isActive={isActive} user={user.author} posts={user?.posts} />
+						)}
 					</SwiperSlide>
 				))}
 			</Swiper>

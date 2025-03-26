@@ -1,5 +1,5 @@
-import icons from "../../../constants/icons";
-import { cn } from "../../../lib/utils";
+import icons from "../../constants/icons";
+import { cn } from "../../lib/utils";
 
 export default function Icon({ icon, className }) {
   return (

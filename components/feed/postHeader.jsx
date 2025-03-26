@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "../ui/button";
-import cdn from "../../../constants/cdn";
-import TimePassedFromDate from "../../../lib/time-from-date";
+import cdn from "../../constants/cdn";
+import TimePassedFromDate from "../../lib/time-from-date";
 
 export default function PostHeader({ images, page, setPage, progress, isHolding, user, post }) {
 	return (

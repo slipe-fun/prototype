@@ -3,13 +3,13 @@ import { AnimatePresence } from "framer-motion";
 import Post from "./post";
 import { api } from '../../lib/axios';
 
-export default function UserSlider({ user, posts }) {
+export default function UserSlider({ user, posts, isActive }) {
 	const [page, setPage] = useState(0);
 	const [userPosts, setUserPosts] = useState([]);
 
 	const navigate = direction => {
 		if (page + direction >= 0 && page + direction < userPosts.length) {
-			setPage(p => p + direction);
+			setPage(p => (p + direction) % userPosts.length);
 		}
 	};
 
@@ -28,7 +28,7 @@ export default function UserSlider({ user, posts }) {
 	return (
 		<div className='relative overflow-hidden w-full h-full'>
 			<AnimatePresence initial={false} mode='wait'>
-				<Post user={user} navigate={navigate} page={page} setPage={setPage} images={userPosts} post={userPosts[page]} />
+				<Post isActive={isActive} user={user} navigate={navigate} page={page} setPage={setPage} images={userPosts} post={userPosts[page]} />
 			</AnimatePresence>
 		</div>
 	);
