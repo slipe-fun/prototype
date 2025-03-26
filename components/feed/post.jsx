@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import PostHeader from "./postHeader";
 import cdn from "../../constants/cdn";
+import PostActions from "./postActions";
 
 export default function Post({ post, images, page, navigate, setPage, user, isActive }) {
 	const [progress, setProgress] = useState(0);
@@ -15,7 +16,7 @@ export default function Post({ post, images, page, navigate, setPage, user, isAc
 
 		if (!isHolding && isActive) {
 			intervalRef.current = setInterval(() => {
-				setProgress(prev => (prev >= 100 ? 0 : prev + 100 / 10));
+				setProgress(prev => (prev >= 100 ? 0 : prev + 100 / 100));
 			}, 100);
 		}
 
@@ -45,7 +46,7 @@ export default function Post({ post, images, page, navigate, setPage, user, isAc
 
 	return (
 		<div
-			className='w-full relative h-full'
+			className='w-full relative flex flex-col h-full'
 			onMouseDown={handleMouseDown}
 			onMouseUp={handleMouseUp}
 			onMouseLeave={handleMouseUp}
@@ -53,16 +54,11 @@ export default function Post({ post, images, page, navigate, setPage, user, isAc
 			onTouchEnd={handleMouseUp}
 		>
 			<PostHeader user={user} images={images} page={page} isHolding={isHolding} setPage={handlePageChange} progress={progress} post={post} />
-
-			<div
-				className='absolute w-1/2 h-[calc(100%-6rem-var(--safe-area-inset-top))] bottom-0 left-0 z-20 cursor-pointer'
-				onClick={() => navigate(-1)}
-			/>
-			<div
-				className='absolute w-1/2 h-[calc(100%-6rem-var(--safe-area-inset-top))] bottom-0 right-0 z-20 cursor-pointer'
-				onClick={() => navigate(1)}
-			/>
-
+			<div className="w-full h-full flex">
+				<div className='absolute w-1/2 h-full z-20 cursor-pointer' onClick={() => navigate(-1)} />
+				<div className='absolute w-1/2 h-full z-20 cursor-pointer' onClick={() => navigate(1)} />
+			</div>
+			<PostActions isHolding={isHolding} />
 			<img src={cdn + "posts/" + post?.image} alt={`Post ${post?.id}`} className='absolute w-full top-0 -z-10 left-0 h-full object-cover' />
 		</div>
 	);

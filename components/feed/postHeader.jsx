@@ -1,11 +1,11 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "../ui/button";
 import cdn from "../../constants/cdn";
 import TimePassedFromDate from "../../lib/time-from-date";
 
 export default function PostHeader({ images, page, setPage, progress, isHolding, user, post }) {
 	return (
-		<div data-is-holding={isHolding} className='w-full duration-150 bg-gradient-to-b from-black/20 pt-[calc(var(--safe-area-inset-top)+1rem)] to-black/0 ease-out data-[is-holding=true]:opacity-50 flex-col gap-4 p-4 flex'>
+		<div data-is-holding={isHolding} className='w-full min-h-fit duration-150 bg-gradient-to-b from-black/20 pt-[calc(var(--safe-area-inset-top)+1rem)] to-black/0 ease-out data-[is-holding=true]:opacity-50 flex-col gap-4 p-4 flex'>
 			<div className='flex w-full gap-2.5'>
 				{images.map((_, index) => (
 					<div
