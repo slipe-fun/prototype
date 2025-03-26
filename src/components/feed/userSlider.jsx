@@ -15,7 +15,7 @@ export default function UserSlider({ user, posts }) {
 
 	async function fetchPosts() {
 		const lastBlog = userPosts[userPosts.length - 1];
-		const request = await api.v1.get(`/post/get?after=${lastBlog?.id}&user=${user.id}&limit=3`);
+		const request = await api.v1.get(`/post/get?after=${lastBlog?.id}&user=${user.id}`);
 		setUserPosts(posts => [...posts, ...(request.data?.success || [])]);
 	}
 
