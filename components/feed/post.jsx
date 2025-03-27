@@ -7,6 +7,7 @@ export default function Post({ post, images, page, navigate, setPage, user, isAc
 	const [progress, setProgress] = useState(0);
 	const [isHolding, setIsHolding] = useState(false);
 	const intervalRef = useRef(null);
+	const timeoutRef = useRef(null);
 
 	useEffect(() => {
 		if (intervalRef.current) {
@@ -37,8 +38,20 @@ export default function Post({ post, images, page, navigate, setPage, user, isAc
 		}
 	}, [progress]);
 
-	const handleMouseDown = () => setIsHolding(true);
-	const handleMouseUp = () => setIsHolding(false);
+	const handleMouseDown = () => {
+		timeoutRef.current = setTimeout(() => {
+			setIsHolding(true);
+		}, 150);
+	};
+	
+	const handleMouseUp = () => {
+		if (timeoutRef.current) {
+			clearTimeout(timeoutRef.current);
+			timeoutRef.current = null;
+		}
+		setIsHolding(false);
+	};
+	
 	const handlePageChange = index => {
 		setProgress(0);
 		setPage(index);
@@ -54,9 +67,9 @@ export default function Post({ post, images, page, navigate, setPage, user, isAc
 			onTouchEnd={handleMouseUp}
 		>
 			<PostHeader user={user} images={images} page={page} isHolding={isHolding} setPage={handlePageChange} progress={progress} post={post} />
-			<div className="w-full h-full flex">
-				<div className='absolute w-1/2 h-full z-20 cursor-pointer' onClick={() => navigate(-1)} />
-				<div className='absolute w-1/2 h-full z-20 cursor-pointer' onClick={() => navigate(1)} />
+			<div className="w-full h-full z-20 flex">
+				<div className='w-1/2 h-full cursor-pointer' onClick={() => navigate(-1)} />
+				<div className='w-1/2 h-full cursor-pointer' onClick={() => navigate(1)} />
 			</div>
 			<PostActions isHolding={isHolding} />
 			<img src={cdn + "posts/" + post?.image} alt={`Post ${post?.id}`} className='absolute w-full top-0 -z-10 left-0 h-full object-cover' />
