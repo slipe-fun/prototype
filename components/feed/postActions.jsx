@@ -4,7 +4,7 @@ import Icon from "../ui/icon";
 import { useEmojiState } from "../../hooks/useEmojiState";
 
 export default function PostActions({isHolding, post}) {
-	const { emojis, handleEmojiClick } = useEmojiState(post?.id);
+	const { emojis, handleEmojiClick } = useEmojiState(post);
 
 	return (
 		<AnimatePresence mode='wait'>
