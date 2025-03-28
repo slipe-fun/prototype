@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "../ui/button";
+import Image from "../ui/image";
 import cdn from "../../constants/cdn";
 import TimePassedFromDate from "../../lib/time-from-date";
 
@@ -22,7 +23,7 @@ export default function PostHeader({ images, page, setPage, progress, isHolding,
 			<div className="flex items-center gap-4">
 				<div className="flex items-center w-full gap-3">
 					<div className="w-12 h-12 rounded-full bg-white/40 overflow-hidden">
-						<img src={cdn + "avatars/" + user.avatar} alt="profile" className="w-full h-full object-cover" />
+						<Image src={cdn + "avatars/" + user.avatar} alt="profile" className="w-full h-full object-cover" />
 					</div>
 					<div className="flex flex-col gap-0.5">
 						<span className="text-white text-[0.9375rem] font-semibold">{user.nickname ||user.username}</span>
