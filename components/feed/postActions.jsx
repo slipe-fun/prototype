@@ -28,7 +28,7 @@ export default function PostActions({isHolding, post}) {
 							className='rounded-full bg-black/50 text-white flex min-w-fit items-center font-semibold gap-2.5 py-3 px-5'
 							onClick={() => handleEmojiClick(emoji)}
 						>
-							<img className='!w-6 !h-6' src={`/emojis/${emoji}.png`} />
+							<img className='!w-6 !h-6' src={`./emojis/${emoji}.png`} />
 							{emojis[emoji].count}
 						</motion.div>
                         ))}
