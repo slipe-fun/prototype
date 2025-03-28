@@ -4,6 +4,7 @@ import { Button } from "../../components/ui/button";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "../../components/ui/input";
+import { api } from "../../lib/axios";
 
 export default function PublishBlog() {
 	const [imageSrc, setImageSrc] = useState(null);
@@ -11,25 +12,52 @@ export default function PublishBlog() {
 	const [postName, setPostName] = useState("");
 	const [isPostName, setIsPostName] = useState(false);
 
-	const takeImage = async camera => {
+	const takeImage = async (camera) => {
 		const image = await Camera.getPhoto({
 			quality: 100,
 			allowEditing: false,
 			resultType: CameraResultType.Uri,
 			source: camera ? CameraSource.Camera : CameraSource.Photos,
 		});
-		
+	
 		setImageSrc(image.webPath);
-		
+	
 		const response = await fetch(image.webPath);
 		const blob = await response.blob();
 		const reader = new FileReader();
 		reader.readAsDataURL(blob);
 		reader.onloadend = () => {
-			const base64data = reader.result;
+			const base64data = reader.result; 
 			setImageBase64(base64data);
 		};
+	
+		return blob;
 	};
+	
+	async function handlePublishPost() {
+		if (!imageBase64) return;
+	
+		const base64String = imageBase64.split(',')[1];
+		const byteCharacters = atob(base64String); 
+		const byteNumbers = new Uint8Array(byteCharacters.length);
+		for (let i = 0; i < byteCharacters.length; i++) {
+			byteNumbers[i] = byteCharacters.charCodeAt(i);
+		}
+		const blob = new Blob([byteNumbers], { type: 'image/png' });
+	
+		const formData = new FormData();
+		formData.append('image', new File([blob], 'image.png', { type: 'image/png' }));
+		formData.append('in_search', postName?.length && postName?.length > 0 ? postName : 'Untitled');
+		formData.append('category', 'story');
+	
+		const response = await api.media.post('/post/publish', formData);
+		
+		if (response.status === 200) {
+			window.location.href = '/';
+		} else {
+			alert('Failed to publish post');
+		}
+	}
 
 	return (
 		<div className='flex flex-col w-full gap-4 h-full items-center justify-center pb-[calc(4.625rem+var(--safe-area-inset-bottom))]'>
@@ -78,7 +106,7 @@ export default function PublishBlog() {
 										animate={{ opacity: 1, y: 0 }}
 										transition={{ delay: 0.2 }}
 									>
-										<Button className='w-full h-13 rounded-[0.75rem]'>Publish post</Button>
+										<Button onClick={handlePublishPost} className='w-full h-13 rounded-[0.75rem]'>Publish post</Button>
 									</motion.div>
 								</>
 							)} { isPostName && (
