@@ -49,6 +49,8 @@ export default function PublishBlog() {
 		formData.append('image', new File([blob], 'image.png', { type: 'image/png' }));
 		formData.append('in_search', postName?.length && postName?.length > 0 ? postName : 'Untitled');
 		formData.append('category', 'story');
+		formData.append('comments_allowed', 'true');
+		formData.append('reactions_allowed', 'true');
 	
 		const response = await api.media.post('/post/publish', formData);
 		
