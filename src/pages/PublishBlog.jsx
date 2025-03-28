@@ -1,5 +1,5 @@
 import Icon from "../../components/ui/icon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../components/ui/button";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,6 +7,7 @@ import { Input } from "../../components/ui/input";
 
 export default function PublishBlog() {
 	const [imageSrc, setImageSrc] = useState(null);
+	const [imageBase64, setImageBase64] = useState("");
 	const [postName, setPostName] = useState("");
 	const [isPostName, setIsPostName] = useState(false);
 
@@ -17,7 +18,17 @@ export default function PublishBlog() {
 			resultType: CameraResultType.Uri,
 			source: camera ? CameraSource.Camera : CameraSource.Photos,
 		});
+		
 		setImageSrc(image.webPath);
+		
+		const response = await fetch(image.webPath);
+		const blob = await response.blob();
+		const reader = new FileReader();
+		reader.readAsDataURL(blob);
+		reader.onloadend = () => {
+			const base64data = reader.result;
+			setImageBase64(base64data);
+		};
 	};
 
 	return (
@@ -55,7 +66,7 @@ export default function PublishBlog() {
 										exit={{ opacity: 0, y: -20 }}
 										transition={{ delay: 0.15 }}
 									>
-										<Button onClick={() => setImageSrc(null)} variant='deleting' size='icon' className='backdrop-blur-3xl rounded-[0.75rem]'>
+										<Button onClick={() => {setImageSrc(null); setPostName("")}} variant='deleting' size='icon' className='backdrop-blur-3xl rounded-[0.75rem]'>
 											<Icon icon='trash' className='!w-8 !h-8' />
 										</Button>
 									</motion.div>
