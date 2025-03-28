@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import PostHeader from "./postHeader";
 import cdn from "../../constants/cdn";
 import PostActions from "./postActions";
+import Image from "../ui/image";
 
 export default function Post({ post, images, page, navigate, setPage, user, isActive }) {
 	const [progress, setProgress] = useState(0);
@@ -72,7 +73,7 @@ export default function Post({ post, images, page, navigate, setPage, user, isAc
 				<div className='w-1/2 h-full cursor-pointer' onClick={() => navigate(1)} />
 			</div>
 			<PostActions isHolding={isHolding} post={post} />
-			<img src={cdn + "posts/" + post?.image} alt={`Post ${post?.id}`} className='absolute w-full top-0 -z-10 left-0 h-full object-cover' />
+			<Image src={cdn + "posts/" + post?.image} alt={`Post ${post?.id}`} wrapperClassName='absolute w-full top-0 -z-10 left-0 h-full object-cover' />
 		</div>
 	);
 }
