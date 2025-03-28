@@ -43,8 +43,8 @@ export function useEmojiState(post) {
             post.reactions.forEach(reaction => {
                 if (postEmojis[reaction.name]) {
                     postEmojis[reaction.name] = {
-                        count: reaction.count,
-                        isActive: reaction.name === post.reaction
+                        count: Number(reaction.count),
+                        isActive: reaction.name === post.reaction?.name
                     };
                 }
             });
