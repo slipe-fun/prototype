@@ -73,7 +73,7 @@ export default function Post({ post, images, page, navigate, setPage, user, isAc
 				<div className='w-1/2 h-full cursor-pointer' onClick={() => navigate(1)} />
 			</div>
 			<PostActions isHolding={isHolding} post={post} />
-			<Image src={cdn + "posts/" + post?.image} alt={`Post ${post?.id}`} wrapperClassName='absolute w-full top-0 -z-10 left-0 h-full object-cover' />
+			<Image src={cdn + "posts/" + post?.image} alt={`Post ${post?.id}`} wrapperClassName='absolute w-full top-0 -z-10 left-0 h-full' className="object-cover" />
 		</div>
 	);
 }
