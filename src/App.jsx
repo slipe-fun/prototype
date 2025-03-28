@@ -3,6 +3,7 @@ import Home from './pages/feed'
 import PublishBlog from './pages/publishBlog'
 import NavBar from '../components/navbar'
 import Auth from './pages/auth'
+
 function App() {
   return (
     <Router>

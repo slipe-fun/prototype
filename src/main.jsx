@@ -6,7 +6,7 @@ import { StatusBar, Style } from '@capacitor/status-bar';
 import { NavigationBar } from '@squareetlabs/capacitor-navigation-bar';
 import { Provider } from 'react-redux';
 import { store } from './store';
-
+import { SessionContextProvider } from '/hooks/contexts/session';
 import './index.css'
 //
 
@@ -25,7 +25,9 @@ SafeArea.getSafeAreaInsets().then(({ insets }) => {
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>  
-      <App />
+      <SessionContextProvider>
+        <App />
+      </SessionContextProvider>
     </Provider>
   </StrictMode>,
 )
