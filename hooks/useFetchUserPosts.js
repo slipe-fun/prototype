@@ -6,7 +6,7 @@ export function useFetchUserPosts(user, posts) {
 
     async function fetchPosts() {
 		const lastBlog = userPosts[userPosts.length - 1];
-		const request = await api.v1.get(`/post/get?after=${lastBlog?.id}&user=${user.id}`);
+		const request = await api.v1.get(`/post/get?after=${lastBlog?.id}&user=${user.id}&category=story&isStory=true`);
 		setUserPosts(posts => [...posts, ...(request.data?.success || [])]);
 	}
 
