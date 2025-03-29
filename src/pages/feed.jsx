@@ -1,10 +1,15 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import UserSlider from "../../components/feed/userSlider";
 import { useFetchUsers } from "../../hooks/useFetchUsers";
+import { useStorage } from "../../hooks/contexts/session";
 
 import "swiper/css";
 
 export default function Home() {
+	const { token } = useStorage();
+
+	if (!token) return window.location.href = "/auth";
+
 	const { users, handleFetchUsers } = useFetchUsers();
 	
 	return (
