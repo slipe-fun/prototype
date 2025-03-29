@@ -13,10 +13,6 @@ export default function UserSlider({ user, posts, isActive }) {
 		}
 	};
 
-	// useEffect(() => {
-	// 	if (page === userPosts.length - 2) fetchPosts();
-	// }, [page]);
-
 	return (
 		<div className='relative overflow-hidden w-full h-full'>
 			<AnimatePresence initial={false} mode='wait'>
