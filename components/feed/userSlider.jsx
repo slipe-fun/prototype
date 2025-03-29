@@ -13,14 +13,14 @@ export default function UserSlider({ user, posts, isActive }) {
 		}
 	};
 
-	useEffect(() => {
-		if (page <= userPosts.length - 2) fetchPosts();
-	}, [page]);
+	// useEffect(() => {
+	// 	if (page === userPosts.length - 2) fetchPosts();
+	// }, [page]);
 
 	return (
 		<div className='relative overflow-hidden w-full h-full'>
 			<AnimatePresence initial={false} mode='wait'>
-				<Post isActive={isActive} user={user} navigate={navigate} page={page} setPage={setPage} images={userPosts} post={userPosts[page]} />
+				<Post fetchPosts={fetchPosts} isActive={isActive} user={user} navigate={navigate} page={page} setPage={setPage} images={userPosts} post={userPosts[page]} />
 			</AnimatePresence>
 		</div>
 	);

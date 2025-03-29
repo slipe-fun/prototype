@@ -6,7 +6,7 @@ import Image from "../ui/image";
 import genPages from "../../lib/pagination/genPages";
 import handlePageChange from "../../lib/pagination/handlePageChange";
 
-export default function Post({ post, images, page, navigate, setPage, user, isActive }) {
+export default function Post({ post, images, page, navigate, setPage, user, isActive, fetchPosts }) {
 	const [progress, setProgress] = useState(0);
 	const [isHolding, setIsHolding] = useState(false);
 	const intervalRef = useRef(null);
@@ -63,7 +63,9 @@ export default function Post({ post, images, page, navigate, setPage, user, isAc
 		setCurrentPage(0);
 	  }, [user]);
 	  
-	  
+	useEffect(() => {
+		fetchPosts();
+	}, [currentPage]);
 
 	return (
 		<div
