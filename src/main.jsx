@@ -8,6 +8,12 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 import { SessionContextProvider } from '/hooks/contexts/session';
 import './index.css'
+import LogRocket from 'logrocket';
+
+//
+
+LogRocket.init('9scrhd/sproto');
+
 //
 
 StatusBar.setOverlaysWebView({ overlay: true });
