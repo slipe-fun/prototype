@@ -41,6 +41,7 @@ export default function Post({ post, images, page, navigate, setPage, user, isAc
 	useEffect(() => {
 		if (progress >= 100) {
 			navigate(1);
+			handlePageChange(page + 1, paginationPages, currentPage, setCurrentPage, setProgress);
 		}
 	}, [progress]);
 
