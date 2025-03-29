@@ -14,7 +14,7 @@ export default function UserSlider({ user, posts, isActive }) {
 	};
 
 	useEffect(() => {
-		if (page == userPosts.length - 2) fetchPosts();
+		if (page <= userPosts.length - 2) fetchPosts();
 	}, [page]);
 
 	return (

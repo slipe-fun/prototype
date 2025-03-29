@@ -3,12 +3,17 @@ import PostHeader from "./postHeader";
 import cdn from "../../constants/cdn";
 import PostActions from "./postActions";
 import Image from "../ui/image";
+import genPages from "../../lib/pagination/genPages";
+import handlePageChange from "../../lib/pagination/handlePageChange";
 
 export default function Post({ post, images, page, navigate, setPage, user, isActive }) {
 	const [progress, setProgress] = useState(0);
 	const [isHolding, setIsHolding] = useState(false);
 	const intervalRef = useRef(null);
 	const timeoutRef = useRef(null);
+
+	const [paginationPages, setPaginationPages] = useState([]);
+	const [currentPage, setCurrentPage] = useState(0);	  
 
 	useEffect(() => {
 		if (intervalRef.current) {
@@ -52,11 +57,13 @@ export default function Post({ post, images, page, navigate, setPage, user, isAc
 		}
 		setIsHolding(false);
 	};
-	
-	const handlePageChange = index => {
-		setProgress(0);
-		setPage(index);
-	};
+
+	useEffect(() => {
+		setPaginationPages(genPages(user?.postsCount) || []);
+		setCurrentPage(0);
+	  }, [user]);
+	  
+	  
 
 	return (
 		<div
@@ -67,10 +74,10 @@ export default function Post({ post, images, page, navigate, setPage, user, isAc
 			onTouchStart={handleMouseDown}
 			onTouchEnd={handleMouseUp}
 		>
-			<PostHeader user={user} images={images} page={page} isHolding={isHolding} setPage={handlePageChange} progress={progress} post={post} />
+			<PostHeader user={user} images={images} page={page} isHolding={isHolding} handlePageChange={handlePageChange} setPage={setPage} progress={progress} post={post} paginationPages={paginationPages} currentPage={currentPage} setCurrentPage={setCurrentPage} setProgress={setProgress} />
 			<div className="w-full h-full z-20 flex">
-				<div className='w-1/2 h-full cursor-pointer' onClick={() => navigate(-1)} />
-				<div className='w-1/2 h-full cursor-pointer' onClick={() => navigate(1)} />
+				<div className='w-1/2 h-full cursor-pointer' onClick={() => {handlePageChange(page - 1, paginationPages, currentPage, setCurrentPage, setProgress); navigate(-1); }} />
+				<div className='w-1/2 h-full cursor-pointer' onClick={() => {handlePageChange(page + 1, paginationPages, currentPage, setCurrentPage, setProgress); navigate(1); }} />
 			</div>
 			<PostActions isHolding={isHolding} post={post} />
 			<Image src={cdn + "posts/" + post?.image} alt={`Post ${post?.id}`} wrapperClassName='absolute w-full top-0 -z-10 left-0 h-full' className="object-cover" />
