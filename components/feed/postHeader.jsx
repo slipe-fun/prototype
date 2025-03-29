@@ -56,15 +56,15 @@ export default function PostHeader({ images, page, setPage, progress, isHolding,
 			</div>
 			<div className="flex items-center gap-4">
 				<div className="flex items-center w-full gap-3">
-					<div className="w-12 h-12 rounded-full bg-white/40 overflow-hidden">
-						<Image src={cdn + "avatars/" + user.avatar} alt="profile" className="w-full h-full object-cover" />
+					<div className="w-12 h-12 rounded-full overflow-hidden">
+						<Image iconClassName="!w-8 !h-8" src={cdn + "avatars/" + user.avatar} alt="profile" />
 					</div>
 					<div className="flex flex-col gap-0.5">
 						<span className="text-white text-[0.9375rem] font-semibold">{user.nickname || user.username}</span>
 						<span className="text-white/50 text-[0.8125rem] font-medium">{TimePassedFromDate(post?.date) || "Unknown time"}</span>
 					</div>
 				</div>
-				<Button onClick={handleFollow} className="rounded-full">{isFollowed ? "Unfollow" : "Follow"}</Button>
+				<Button onClick={handleFollow} variant={isFollowed ? "semiTransparent" : "default"} className="rounded-full">{isFollowed ? "Unfollow" : "Follow"}</Button>
 			</div>
 		</div>
 	);

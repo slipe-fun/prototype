@@ -25,11 +25,12 @@ const Image = forwardRef(({ className, src, alt, placeholderClassName, wrapperCl
 				{!loaded && (
 					<motion.div
 						key='placeholder'
+						data-loaded={loaded}
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
 						transition={{ duration: 0.2, ease: "easeOut" }}
-						className={cn("bg-loading absolute inset-0 z-10 flex w-full h-full justify-center items-center", placeholderClassName)}
+						className={cn("bg-loading absolute inset-0 bg-black/50 z-10 data-[loaded=true]:backdrop-blur-none backdrop-blur-3xl flex w-full h-full justify-center items-center", placeholderClassName)}
 					>
 						<Icon icon='slipe' className={cn("!w-16 opacity-25 !h-16 ease-out animate-pulse", iconClassName)} />
 					</motion.div>
@@ -38,7 +39,7 @@ const Image = forwardRef(({ className, src, alt, placeholderClassName, wrapperCl
 		</>
 	);
 
-	return wrapper ? <div className={cn("relative overflow-hidden", wrapperClassName)}>{content}</div> : content;
+	return wrapper ? <div className={cn("relative overflow-hidden h-full w-full", wrapperClassName)}>{content}</div> : content;
 });
 
 export default Image;
