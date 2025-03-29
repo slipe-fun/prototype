@@ -45,6 +45,7 @@ export default function PostActions({isHolding, post}) {
 							)}
 						</AnimatePresence>
 					</motion.div>
+					<div className="flex w-full overflow-scroll gap-4">
                         {Object.keys(emojis).map((emoji, index) => (
                             <motion.div
 							initial={{ opacity: 0, y: "100%" }}
@@ -58,7 +59,7 @@ export default function PostActions({isHolding, post}) {
 							{emojis[emoji].count}
 						</motion.div>
                         ))}
-						
+							</div>				
 				</div>
 		</AnimatePresence>
 	);
