@@ -5,6 +5,7 @@ import PostActions from "./postActions";
 import Image from "../ui/image";
 import genPages from "../../lib/pagination/genPages";
 import handlePageChange from "../../lib/pagination/handlePageChange";
+import { api } from "../../lib/axios";
 
 export default function Post({ post, images, page, navigate, setPage, user, isActive, fetchPosts }) {
 	const [progress, setProgress] = useState(0);
@@ -67,6 +68,18 @@ export default function Post({ post, images, page, navigate, setPage, user, isAc
 	useEffect(() => {
 		fetchPosts();
 	}, [currentPage]);
+
+	useEffect(() => {
+		if (images.length === 0) return;
+
+		const currentPost = images[page];
+		if (currentPost?.viewed) return;
+
+		const viewForm = new FormData();
+		viewForm.append("post_id", Number(currentPost?.id));
+
+		api.media.post("/post/view", viewForm);
+	}, [page, images]);
 
 	return (
 		<div
