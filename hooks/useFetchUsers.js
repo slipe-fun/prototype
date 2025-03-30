@@ -6,7 +6,7 @@ export function useFetchUsers() {
 
 	async function fetchPosts() {
 		const allUsersIds = users.map(user => user.author.id);
-		const request = await api.v1.get(`/post/get?after=0&users=[${allUsersIds}]&region=slavic&horizontalCount=6&isStory=true`);
+		const request = await api.v1.get(`/post/get?after=0&users=[${allUsersIds}]&horizontalCount=6&isStory=true`);
 		const localUsers = request.data?.success || [];
 		if (Object.keys(localUsers).length === 0) return;
 		setUsers(users => [...users, ...Object.keys(localUsers).map(user => localUsers[user]) || []]);
