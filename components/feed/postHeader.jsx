@@ -61,7 +61,7 @@ export default function PostHeader({ images, page, setPage, progress, isHolding,
 					</div>
 					<div className="flex flex-col gap-0.5">
 						<span className="text-white text-[0.9375rem] font-semibold">{user.nickname || user.username}</span>
-						<span className="text-white/50 text-[0.8125rem] font-medium">{TimePassedFromDate(post?.date) || "Unknown time"}</span>
+						<span className="text-white/50 text-[0.8125rem] font-medium">{TimePassedFromDate(post?.date) || "Unknown time"} | {post?.views || 0} views</span>
 					</div>
 				</div>
 				<Button onClick={handleFollow} variant={isFollowed ? "semiTransparent" : "default"} className="rounded-full">{isFollowed ? "Unfollow" : "Follow"}</Button>
