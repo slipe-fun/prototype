@@ -8,9 +8,15 @@ import "swiper/css";
 import { useEffect } from "react";
 
 export default function Home() {
-	const { token } = useStorage();
+	const { token, store } = useStorage();
 
-	if (!token) return window.location.href = "/auth";
+	useEffect(() => {
+		const getToken = async () => {
+			const value = await store.get("token");
+			if (!value) return window.location.href = "/auth";
+		};
+		getToken();
+	}, [store]);
 
 	const { users, handleFetchUsers } = useFetchUsers();
 
