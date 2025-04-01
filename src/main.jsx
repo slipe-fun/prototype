@@ -30,10 +30,10 @@ SafeArea.getSafeAreaInsets().then(({ insets }) => {
 
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
-		<SessionContextProvider>
 			<Provider store={store}>
-				<App />
+				<SessionContextProvider>
+					<App />
+				</SessionContextProvider>
 			</Provider>
-		</SessionContextProvider>
 	</StrictMode>
 );
