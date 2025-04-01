@@ -6,12 +6,10 @@ export const store = {
 	get: async (key) => JSON.parse((await Preferences.get({ key })).value)
 }
 
-const token = await store.get("token");
-
 export const SessionContext = createContext(null);
 
 export const SessionContextProvider = ({ children }) => {
-	return <SessionContext.Provider value={{ token, store }}>{children}</SessionContext.Provider>;
+	return <SessionContext.Provider value={{ token: store.get("token"), store }}>{children}</SessionContext.Provider>;
 };
 
 export const useStorage = () => useContext(SessionContext);
