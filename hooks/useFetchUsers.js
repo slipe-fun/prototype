@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { api } from "../lib/axios";
+import GetUniqueById from "../lib/getUniqueById";
+
+const unique = arr => [...new Map(arr.map(item => [item.author_id, item])).values()];
 
 export function useFetchUsers() {
 	const [users, setUsers] = useState([]);
@@ -9,7 +12,7 @@ export function useFetchUsers() {
 		const request = await api.v1.get(`/post/get?after=0&users=[${allUsersIds}]&horizontalCount=6&isStory=true`);
 		const localUsers = request.data?.success || [];
 		if (Object.keys(localUsers).length === 0) return;
-		setUsers(users => [...users, ...Object.keys(localUsers).map(user => localUsers[user]) || []]);
+		setUsers(users => unique([...users, ...Object.keys(localUsers).map(user => localUsers[user]) || []]));
 	}
 
 	useEffect(() => {
