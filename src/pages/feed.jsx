@@ -3,17 +3,19 @@ import UserSlider from "../../components/feed/userSlider";
 import { useFetchUsers } from "../../hooks/useFetchUsers";
 import { useStorage } from "../../hooks/contexts/session";
 import { api } from "../../lib/axios";
+import { useNavigate } from "react-router-dom";
 
 import "swiper/css";
 import { useEffect } from "react";
 
 export default function Home() {
 	const { token, store } = useStorage();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const getToken = async () => {
 			const value = await store.get("token");
-			if (!value) return window.location.href = "/auth";
+			if (!value) return navigate("/auth");
 		};
 		getToken();
 	}, [store]);

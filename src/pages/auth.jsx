@@ -4,12 +4,15 @@ import isRegistrationDataCorrect from "../../lib/auth/signUp/isDataCorrect";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/axios";
 import { useStorage } from "../../hooks/contexts/session";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Auth() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState(null);
 	const { token, store } = useStorage();
+	const navigate = useNavigate();
 
 	const handleLogin = async () => {
 		if (!username.trim().length || !password.trim().length) {
@@ -22,7 +25,7 @@ export default function Auth() {
 		})).then(async (res) => {
 			await store.set("token", res?.data?.token);
 			setError(null);
-			window.location.href = "/";
+			navigate("/");
 		}).catch((err) => {
 			setError(err?.response?.data?.error);
 		})
@@ -44,7 +47,7 @@ export default function Auth() {
 		})).then(async (res) => {
 			await store.set("token", res?.data?.token);
 			setError(null);
-			window.location.href = "/";
+			navigate("/");
 		}).catch((err) => {
 			setError(err?.response?.data?.error);
 		})
