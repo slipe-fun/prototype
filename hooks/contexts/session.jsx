@@ -2,8 +2,8 @@ import { useContext, createContext } from "react";
 import { Preferences } from '@capacitor/preferences';
 
 export const store = {
-	set: async (key, value) => await Preferences.set({ key, value: JSON.stringify(value) }),
-	get: async (key) => JSON.parse((await Preferences.get({ key })).value)
+	set: async (key, value) => await Preferences.set({ key, value: JSON.stringify(value) }) || localStorage.setItem(key, JSON.stringify(value)),
+	get: async (key) => JSON.parse((await Preferences.get({ key })).value || localStorage.getItem(key))
 }
 
 export const SessionContext = createContext(null);
