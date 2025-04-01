@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { api } from "../lib/axios";
-import GetUniqueById from "../lib/getUniqueById";
 
 const unique = arr => [...new Map(arr.map(item => [item.author_id, item])).values()];
 
