@@ -1,0 +1,21 @@
+.reaction-button {
+  padding: 8px 12px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin-right: 8px;
+}
+
+.reaction-button--active {
+  background-color: rgba(44, 123, 229, 0.3);
+}
+
+.reaction-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+}
+
+.reaction-count {
+  font-size: 14px;
+  color: #fff;
+} 

@@ -1,0 +1,47 @@
+.icon-list {
+  padding: 16px;
+  background-color: #121212;
+  border-radius: 12px;
+}
+
+.icon-list-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.icon-list-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.icon-list-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(20% - 16px);
+  padding: 12px 8px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.icon-list-item:active {
+  background-color: #333;
+}
+
+.icon-list-icon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 8px;
+  margin-right: 0;
+}
+
+.icon-list-label {
+  font-size: 11px;
+  color: #ddd;
+  text-align: center;
+} 
