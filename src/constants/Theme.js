@@ -1,9 +1,9 @@
 export const colors = {
   primary: '#0A84FF',
-  glassButton: '#00000029',
+  glassButton: 'rgba(0, 0, 0, 0.5)',
   dark: '#000000',
   white: '#ffffff',
-  indicator: '#ffffff40'
+  indicator: 'rgba(255, 255, 255, 0.3)'
 };
 
 export const spacing = {
@@ -18,4 +18,4 @@ export const borderRadius = {
   small: 8,
   medium: 16,
   large: 20,
-};
+}; 

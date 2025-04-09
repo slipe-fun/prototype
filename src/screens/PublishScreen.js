@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { colors } from '../components/Theme';
+import { colors } from '../constants/Theme';
 
 const PublishScreen = () => {
   return (
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.light,
+    backgroundColor: colors.white,
   },
 });
 
