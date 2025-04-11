@@ -1,53 +1,96 @@
-import React from "react";
-import { View, TouchableOpacity } from "react-native";
-import { BlurView } from "expo-blur";
-import { Ionicons } from "@expo/vector-icons";
-import { colors } from "../../constants/Theme";
+import React, { useRef, useEffect } from "react";
+import { View, TouchableOpacity, Animated, Easing, Text } from "react-native";
 import { ROUTES } from "../../constants/Routes";
 import { styles } from "./styles/TabBarStyles";
+import Icon from "./icon";
+import { colors } from "../../constants/Theme";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const CustomTabBar = ({ state, descriptors, navigation }) => {
+	const insets = useSafeAreaInsets();
+
 	return (
-		<View style={styles.tabBarContainer}>
-			<BlurView
-				style={styles.blurView}
-				intensity={80}
-				tint="light"
-			>
-				{state.routes.map((route, index) => {
-					const { options } = descriptors[route.key];
-					const isFocused = state.index === index;
+		<View style={[styles.tabBarContainer, { paddingBottom: insets.bottom + 6 }]}>
+			{state.routes.map((route, index) => {
+				const { options } = descriptors[route.key];
+				const isFocused = state.index === index;
 
-					const onPress = () => {
-						const event = navigation.emit({
-							type: "tabPress",
-							target: route.key,
-							canPreventDefault: true,
-						});
+				const focusAnim = useRef(new Animated.Value(isFocused ? 1 : 0)).current;
 
-						if (!isFocused && !event.defaultPrevented) {
-							navigation.navigate(route.name);
-						}
-					};
+				useEffect(() => {
+					Animated.timing(focusAnim, {
+						toValue: isFocused ? 1 : 0,
+						duration: 200,
+						easing: Easing.inOut(Easing.ease),
+						useNativeDriver: false,
+					}).start();
+				}, [isFocused, focusAnim]);
 
-					let iconName;
-					if (route.name === ROUTES.BLOGS) {
-						iconName = isFocused ? "newspaper" : "newspaper-outline";
-					} else if (route.name === ROUTES.PUBLISH) {
-						iconName = isFocused ? "create" : "create-outline";
-					} else if (route.name === ROUTES.SEARCH) {
-						iconName = isFocused ? "search" : "search-outline";
+				const interpolatedColor = focusAnim.interpolate({
+					inputRange: [0, 1],
+					outputRange: [colors.white, colors.primary],
+				});
+
+				const interpolatedOpacity = focusAnim.interpolate({
+					inputRange: [0, 1],
+					outputRange: [0.35, 1],
+				});
+
+				const onPress = () => {
+					const event = navigation.emit({
+						type: "tabPress",
+						target: route.key,
+						canPreventDefault: true,
+					});
+
+					if (!isFocused && !event.defaultPrevented) {
+						navigation.navigate(route.name);
 					}
+				};
 
-					return (
-						<View key={route.key} style={styles.tabItem}>
-							<TouchableOpacity onPress={onPress} style={[styles.tabButton, isFocused && styles.tabButtonFocused]}>
-								<Ionicons name={iconName} size={24} color={isFocused ? colors.primary : colors.glassButton} />
-							</TouchableOpacity>
-						</View>
-					);
-				})}
-			</BlurView>
+				let iconName;
+				let pageName;
+				if (route.name === ROUTES.BLOGS) {
+					iconName = "feed";
+					pageName = "Feed";
+				} else if (route.name === ROUTES.PUBLISH) {
+					iconName = "publish";
+					pageName = "Publish";
+				} else if (route.name === ROUTES.SEARCH) {
+					iconName = "search";
+					pageName = "Search";
+				} else if (route.name === ROUTES.PROFILE) {
+					iconName = "user";
+					pageName = "Profile";
+				}
+
+				const AnimatedText = Animated.createAnimatedComponent(Text);
+
+				return (
+					<View key={route.key} style={styles.tabItem}>
+						<TouchableOpacity activeOpacity={1} onPress={onPress} style={styles.tabButton}>
+							<Animated.View
+								style={{
+									opacity: interpolatedOpacity,
+									alignItems: "center",
+									width: '100%',
+									gap: 2,
+									justifyContent: "center",
+								}}
+							>
+								<Icon icon={iconName} size={34} color={interpolatedColor} />
+								<AnimatedText
+									style={[{
+										color: interpolatedColor,
+									}, styles.tabButtonText]}
+								>
+									{pageName}
+								</AnimatedText>
+							</Animated.View>
+						</TouchableOpacity>
+					</View>
+				);
+			})}
 		</View>
 	);
 };

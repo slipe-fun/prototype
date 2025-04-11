@@ -1,7 +1,7 @@
 export const colors = {
   primary: '#0A84FF',
   glassButton: 'rgba(0, 0, 0, 0.5)',
-  dark: '#000000',
+  black: '#000000',
   white: '#ffffff',
   indicator: 'rgba(255, 255, 255, 0.3)'
 };

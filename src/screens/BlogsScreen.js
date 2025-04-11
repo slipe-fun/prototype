@@ -1,22 +1,30 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { colors } from '../constants/Theme';
+import React, { useEffect } from "react";
+import { View } from "react-native";
+import { colors } from "../constants/Theme";
+import { Platform } from "react-native";
+import UsersSlider from "../components/common/blogsScreen";
+import * as NavigationBar from 'expo-navigation-bar';
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const BlogsScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text>Blogs</Text>
-    </View>
-  );
+	const insets = useSafeAreaInsets();
+  
+	useEffect(() => {
+		if (Platform.OS === "android") {
+			const configureNavigationBar = async () => {
+				await NavigationBar.setPositionAsync("absolute");
+				await NavigationBar.setBackgroundColorAsync("transparent");
+				await NavigationBar.setButtonStyleAsync("light");
+			};
+			configureNavigationBar();
+		}
+	}, []);
+
+	return (
+		<View style={{ flex: 1, paddingTop: insets.top + 6, backgroundColor: colors.black }}>
+			<UsersSlider />
+		</View>
+	);
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.white,
-  },
-});
-
-export default BlogsScreen; 
+export default BlogsScreen;
